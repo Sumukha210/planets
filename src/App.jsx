@@ -1,14 +1,16 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
+import { Message } from "./components/common/CommonStyles";
 import Navbar from "./components/common/Navbar";
-import Favorite from "./components/Favorite";
 import Home from "./components/Home";
 import { DataContextProvider } from "./Context/DataContext";
 
+const Favorite = lazy(() => import("./components/Favorite"));
+
 const App = () => {
   return (
-    <>
+    <Suspense fallback={<Message />}>
       <GlobalStyles />
       <Main>
         <DataContextProvider>
@@ -21,7 +23,7 @@ const App = () => {
           </BrowserRouter>
         </DataContextProvider>
       </Main>
-    </>
+    </Suspense>
   );
 };
 
